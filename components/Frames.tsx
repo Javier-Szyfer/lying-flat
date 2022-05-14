@@ -1,16 +1,17 @@
 import Image from "next/image";
 
 export default function Frames({ setShowNFTS, ownedNFTS }) {
-  if (ownedNFTS.length) {
+  console.log("ownedNFTS", ownedNFTS);
+  if (ownedNFTS?.length) {
     return (
       <div className="relative flex flex-col h-screen justify-center items-center ">
         <div className="hidden lg:flex justify-between items-center space-x-8  mx-auto ">
-          {ownedNFTS.map((nft) => (
+          {ownedNFTS.map((nft: any) => (
             <div className="relative w-52 h-52" key={nft.id}>
               <span className="absolute top-[-2px] left-[-16px] w-10 h-4 rotate-[-45deg] bg-stone-300 z-10"></span>
               <Image
-                src={nft.image_original_url}
-                alt={nft.name}
+                src={`https://ipfs.io/ipfs/bafybeicgwytuxvm6p6w6gbigaykwg5xmkwyvbnsx2jq5w7dbvkr4dpvwxy/${nft.token_id}.jpg`}
+                alt={nft?.name}
                 layout="fill"
                 objectFit="contain"
               />

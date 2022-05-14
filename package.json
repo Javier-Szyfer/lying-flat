@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@headlessui/react": "1.6.1",
+    "@heroicons/react": "1.0.6",
     "@rainbow-me/rainbowkit": "0.1.0",
     "@types/tailwindcss": "3.0.10",
     "dotenv": "16.0.0",

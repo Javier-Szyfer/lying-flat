@@ -6,7 +6,6 @@ import { useContractRead } from 'wagmi'
 import { contractAddress } from '../config/contractAddress'
 import { LyingFlatABI } from '../config/LyingFlatABI'
 import { ethers } from 'ethers'
-import Nav from '../components/Nav'
 
 const Marketplace: NextPage = () => {
   const [nftsURIS, setNftsURIS] = useState([])
@@ -45,8 +44,6 @@ console.log(nftsURIS);
           </div>
         ))}
       </div>
-
-      <Nav />
     </div>
   )
 }

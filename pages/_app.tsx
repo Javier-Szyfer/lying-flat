@@ -14,6 +14,7 @@ import {
 
 import { chain, createClient, WagmiProvider } from 'wagmi'
 import { ethers } from 'ethers'
+import Nav from '../components/Nav'
 
 const provider = new ethers.providers.InfuraProvider(
   "rinkeby",
@@ -70,6 +71,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       <WagmiProvider client={wagmiClient}>
         <RainbowKitProvider chains={chains} theme={myTheme}>
           <Component {...pageProps} />
+          <Nav  />
+
         </RainbowKitProvider>
       </WagmiProvider>
     )
