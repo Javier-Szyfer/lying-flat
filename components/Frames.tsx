@@ -6,18 +6,22 @@ export default function Frames({ setShowNFTS, ownedNFTS }) {
     return (
       <div className="relative flex flex-col h-screen justify-center items-center ">
         <div className="hidden lg:flex justify-between items-center space-x-8  mx-auto ">
-          {ownedNFTS.map((nft: any) => (
-            <div className="relative w-52 h-52" key={nft.id}>
-              <span className="absolute top-[-2px] left-[-16px] w-10 h-4 rotate-[-45deg] bg-stone-300 z-10"></span>
-              <Image
-                src={`https://ipfs.io/ipfs/bafybeicgwytuxvm6p6w6gbigaykwg5xmkwyvbnsx2jq5w7dbvkr4dpvwxy/${nft.token_id}.jpg`}
-                alt={nft?.name}
-                layout="fill"
-                objectFit="contain"
-              />
-              <span className="absolute top-[-2px] right-[-16px] w-10 h-4 rotate-[45deg] bg-stone-300   z-10"></span>
-            </div>
-          ))}
+          {ownedNFTS.map((nft: any) => {
+            const { owner, tokenId } = nft;
+            const img = `https://ipfs.io/ipfs/bafybeicgwytuxvm6p6w6gbigaykwg5xmkwyvbnsx2jq5w7dbvkr4dpvwxy/${tokenId}.jpg`;
+            return (
+              <div className="relative w-52 h-52" key={nft.tokenId}>
+                <span className="absolute top-[-2px] left-[-16px] w-10 h-4 rotate-[-45deg] bg-stone-300 z-10"></span>
+                <Image
+                  src={img}
+                  alt={nft?.name}
+                  layout="fill"
+                  objectFit="contain"
+                />
+                <span className="absolute top-[-2px] right-[-16px] w-10 h-4 rotate-[45deg] bg-stone-300   z-10"></span>
+              </div>
+            );
+          })}
         </div>
         <div className="flex flex-col justify-center items-center">
           <p className="mt-2">

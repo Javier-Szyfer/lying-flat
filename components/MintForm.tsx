@@ -49,10 +49,12 @@ const MintForm = () => {
     onSuccess(data) {
       showSuccess(data);
       setShowTXHash(true);
+      setTimeout(() => {
+        setShowTXHash(false);
+      }, 5000);
     },
   });
 
-  console.log(waitForTransaction);
   const showSuccess = (data: any) => {
     toast.success(`Minted ${amount} tokens!`, {
       toastId: "$sdfg9024",
@@ -127,10 +129,10 @@ const MintForm = () => {
           pauseOnHover={false}
         />
         <div className="flex  justify-center space-x-2 ">
-          <div className="flex items-center justify-center border-2 border-stone-800 text-center cursor-pointer ">
+          <div className="flex items-center justify-center border-2 text-2xl sm:text-lg  border-stone-800 text-center cursor-pointer ">
             <div
               className={`${
-                amount === 1 ? "bg-stone-300 " : "bg-transparent "
+                amount === 1 ? "bg-stone-400 " : "bg-transparent "
               } py-1 px-2  text-center border-r-2 border-stone-800  `}
               onClick={() => setAmount(1)}
             >
@@ -140,7 +142,7 @@ const MintForm = () => {
             <div
               onClick={() => setAmount(2)}
               className={`${
-                amount === 2 ? "bg-stone-300 " : "bg-transparent "
+                amount === 2 ? "bg-stone-400 " : "bg-transparent "
               } py-1 px-2  text-center  `}
             >
               2
@@ -149,10 +151,10 @@ const MintForm = () => {
           <button
             type="submit"
             disabled={processing || !account}
-            className="py-1 px-4  border-2 border-stone-800 text-center disabled:opacity-80 disabled:cursor-not-allowed hover:bg-zinc-300"
+            className="py-1 px-4 text-2xl sm:text-lg  border-2 border-stone-800  text-center disabled:opacity-80 disabled:cursor-not-allowed hover:bg-stone-400"
           >
             {processing ? (
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center ">
                 <svg
                   className="animate-spin -ml-1 mr-3 h-5 w-5 text-stone-500"
                   xmlns="http://www.w3.org/2000/svg"
@@ -173,7 +175,7 @@ const MintForm = () => {
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                   ></path>
                 </svg>
-                <span>Processing</span>{" "}
+                <span>MINTING...</span>{" "}
               </div>
             ) : (
               `MINT ${amount * 0.1} Ξ`

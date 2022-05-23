@@ -1,49 +1,63 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useState, useEffect } from 'react'
-import Image from 'next/image'
-import { useContractRead } from 'wagmi'
-import { contractAddress } from '../config/contractAddress'
-import { LyingFlatABI } from '../config/LyingFlatABI'
-import { ethers } from 'ethers'
+import Link from 'next/link'
+import useSWR from 'swr'
+import { ZORA_INDEX_RINKEBY, ZORA_INDEX_MAINNET } from '../config/Zora'
+import { request, RequestDocument } from 'graphql-request'
+import { MarketplaceGrid } from '../components/MarketplaceGrid'
+import { allMintedTokensQuery, allV3Asks } from '../lib/ZoraQueries'
 
 const Marketplace: NextPage = () => {
-  const [nftsURIS, setNftsURIS] = useState([])
-  const { data: totalSupply } = useContractRead(
-    {
-      addressOrName: contractAddress,
-      contractInterface: LyingFlatABI,
-    },
-    'totalSupply',
-  )
-console.log(nftsURIS);
-  useEffect(() => {
-    if (totalSupply) {
-      for (let i = 0; i < 20; i++) {
-        let images = `https://ipfs.io/ipfs/bafybeicgwytuxvm6p6w6gbigaykwg5xmkwyvbnsx2jq5w7dbvkr4dpvwxy/${i}.jpg`
-        i++
-        setNftsURIS([...nftsURIS, images])
-      }
-    }
-  }, [totalSupply])
+  const fetcher = (query: RequestDocument) => request(ZORA_INDEX_RINKEBY, query)
 
+  const { data: allTokensMinted } = useSWR(allMintedTokensQuery, fetcher, {
+    refreshInterval: 10,
+  })
+  const { data: allV3AsksTokens } = useSWR(allV3Asks, fetcher, {
+    refreshInterval: 10,
+  })
+console.log("allTokensMinted", allTokensMinted?.Token)
+console.log("allV3Aks", allV3AsksTokens?.V3Ask)
   return (
-    <div className="bg-neutral-200 mix-blend-multiply min-h-screen  p-3">
-      <h1>Marketplace</h1>
-      <div className="grid grid-cols-4 gap-4 max-w-6xl mx-auto">
-        {nftsURIS.map((uri, index) => (
-          <div key={index} className="w-48 h-48">
-            <Image
-              src={uri}
-              alt={uri}
-              layout="responsive"
-              width={48}
-              height={48}
-              objectFit="cover"
-            />
-          </div>
-        ))}
-      </div>
+    <div className="pt-10 md:pt-18 md:p-3  min-h-screen min-w-screen  bg-stone-300 ">
+      <Head>
+        <title>Lying flat - Marketplace</title>
+        <meta name="description" content="Lying flat NFT Marketplace" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <nav className="flex items-center fixed z-30 backdrop-blur-sm top-0 left-0 h-16 w-full px-4 lg:px-8 text-stone-800">
+        <span>Marketplace</span>
+        <span className="mx-2">/</span>
+        <Link href="/" passHref>
+          <a className="hover:text-stone-900 "> Mint</a>
+        </Link>
+      </nav>
+      {allTokensMinted && allV3AsksTokens ?
+        <MarketplaceGrid allTokensMinted={allTokensMinted.Token} allV3AsksTokens={allV3AsksTokens.V3Ask} />
+       : (
+        <div className="w-screen h-screen flex flex-col justify-center items-center">
+          <svg
+            className="animate-spin -ml-1 mr-3 h-10 w-10 text-stone-500"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            ></circle>
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+        </div>
+      )}
     </div>
   )
 }

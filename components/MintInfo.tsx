@@ -1,6 +1,6 @@
 const MintInfo = () => {
   return (
-    <div className="flex flex-col leading-5 ">
+    <div className="flex flex-col leading-6 sm:leading-5 text-2xl sm:text-lg">
       MAX SUPPLY = 20
       <br />
       MAX MINT LIMIT = 2 <br />
