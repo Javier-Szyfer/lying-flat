@@ -44,8 +44,5 @@ export default function OwnedNFTS() {
         <OwnerNFTS ownedNFTS={ownedNFTS} />
       </div>
     );
-  }
-  setTimeout(() => {
-    return <Frames />;
-  }, 1000);
+  } else return <Frames />;
 }

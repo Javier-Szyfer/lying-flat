@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   useBalance,
@@ -19,9 +19,11 @@ import request, { RequestDocument } from "graphql-request";
 import { ZORA_INDEX_RINKEBY } from "../config/Zora";
 import { allMintedTokensQuery } from "../lib/ZoraQueries";
 import useSWR from "swr";
+import ConnectModal from "./ConnectModal";
 
 const MintForm = () => {
   const [amount, setAmount] = useState(1);
+  const [connectOpen, setConnectOpen] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [showTXHash, setShowTXHash] = useState(false);
   const options = { value: ethers.utils.parseEther((amount * 0.1).toString()) };
@@ -83,6 +85,11 @@ const MintForm = () => {
   const firstChecks = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setProcessing(true);
+    if (!account) {
+      setConnectOpen(true);
+      setProcessing(false);
+      return;
+    }
     if (balance?.formatted <= (amount * 0.01).toString()) {
       setProcessing(false);
       toast.error("Not enough funds :(", {
@@ -123,8 +130,20 @@ const MintForm = () => {
   const { data: allTokensMinted } = useSWR(allMintedTokensQuery, fetcher, {
     refreshInterval: 10,
   });
+
+  useEffect(() => {
+    if (account) {
+      setConnectOpen(false);
+    }
+  }, [account]);
   return (
     <>
+      {!account && (
+        <ConnectModal
+          setConnectOpen={setConnectOpen}
+          connectOpen={connectOpen}
+        />
+      )}
       <form onSubmit={firstChecks}>
         <ToastContainer
           position="top-right"
@@ -162,7 +181,7 @@ const MintForm = () => {
             </div>
             <button
               type="submit"
-              disabled={processing || !account}
+              disabled={processing}
               className="py-1 px-4 text-2xl sm:text-2xl lg:text-xl  border-2 border-stone-800  text-center disabled:opacity-80 disabled:cursor-not-allowed hover:bg-stone-400"
             >
               {processing ? (
@@ -201,12 +220,6 @@ const MintForm = () => {
             >
               <a target="_blank" rel="noopener noreferrer">
                 <div className="relative flex flex-col font-bold text-sm  justify-center items-center px-2 py-1 bg-green-400 text-green-900 text-center border-2 border-green-600 mt-4 max-w-48 overflow-hidden">
-                  {/* <button
-                  className="absolute right-4 top-1 text-lg font-bold"
-                  onClick={() => setShowTXHash(false)}
-                >
-                  x
-                </button> */}
                   <span>
                     SEE YOUR TX ON ETHERSCAN, <br /> YOU SHALL RECEIVE YOUR NFT
                     PRETTY SOON

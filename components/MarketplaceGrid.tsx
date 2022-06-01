@@ -13,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ethers } from "ethers";
 import { Tooltip, FF_MESSAGE } from "./Tooltip";
+import ConnectModal from "./ConnectModal";
 
 const CheckENS = (address: any) => {
   const ensName = useEnsName({ address });
@@ -25,6 +26,7 @@ export function MarketplaceGrid({ allTokensMinted, allV3AsksTokens }) {
   const [updateFormOpen, setUpdateFormOpen] = useState(false);
   const [cancelAskOpen, setCancelAskOpen] = useState(false);
   const [fillAskState, setFillAskState] = useState(false);
+  const [connectOpen, setConnectOpen] = useState(false);
   const [mintedTokenId, setMintTokenID] = useState(0);
 
   const moduleManagerAddress = mainnetZoraAddresses.ZoraModuleManager;
@@ -45,10 +47,24 @@ export function MarketplaceGrid({ allTokensMinted, allV3AsksTokens }) {
   );
 
   const openCreateAskForm = (_tokenId: any) => {
+    if (!account) {
+      setConnectOpen(true);
+      return;
+    } else if (!modulesApproved) {
+      setApproveZoraOpen(true);
+      return;
+    }
     setMintTokenID(_tokenId);
     setCreateAskState(true);
   };
   const openBuyAskForm = (_tokenId: any) => {
+    if (!account) {
+      setConnectOpen(true);
+      return;
+    } else if (!modulesApproved) {
+      setApproveZoraOpen(true);
+      return;
+    }
     setMintTokenID(_tokenId);
     setFillAskState(true);
   };
@@ -90,6 +106,12 @@ export function MarketplaceGrid({ allTokensMinted, allV3AsksTokens }) {
           <ApproveMarketplaceDialog
             isOpen={approveZoraOpen}
             setIsOpen={setApproveZoraOpen}
+          />
+        )}
+        {connectOpen && !account && (
+          <ConnectModal
+            setConnectOpen={setConnectOpen}
+            connectOpen={connectOpen}
           />
         )}
 
@@ -164,11 +186,7 @@ export function MarketplaceGrid({ allTokensMinted, allV3AsksTokens }) {
                         askData?.status !== "ACTIVE" && (
                           <button
                             className="py-[2px] px-3 bg-stone-800 hover:bg-stone-900  text-stone-200"
-                            onClick={() =>
-                              modulesApproved
-                                ? openCreateAskForm(tokenId)
-                                : setApproveZoraOpen(true)
-                            }
+                            onClick={() => openCreateAskForm(tokenId)}
                           >
                             SALE
                           </button>
@@ -183,13 +201,6 @@ export function MarketplaceGrid({ allTokensMinted, allV3AsksTokens }) {
                           ETH
                         </div>
                       )}
-                      {/* {askData?.findersFeeBps > 0 && (
-                        <>
-                          <Tooltip message={FF_MESSAGE}>
-                            <span>{` ${askData.findersFeeBps / 10} %`}</span>
-                          </Tooltip>
-                        </>
-                      )} */}
                       {/* IF THE ASK BELONGS TO THE OWNER THEN SHOW CANCEL AND UPDATE BUTTONS */}
                       {owner === account?.address &&
                         askData?.status === "ACTIVE" && (
@@ -221,9 +232,7 @@ export function MarketplaceGrid({ allTokensMinted, allV3AsksTokens }) {
                           <button
                             className="py-[2px] px-3 bg-stone-800 hover:bg-stone-900  text-stone-200"
                             onClick={() => {
-                              modulesApproved
-                                ? openBuyAskForm(tokenId)
-                                : setApproveZoraOpen(true);
+                              openBuyAskForm(tokenId);
                             }}
                           >
                             BUY

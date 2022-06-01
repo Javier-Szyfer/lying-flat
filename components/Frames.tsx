@@ -11,12 +11,12 @@ export default function Frames() {
         </p>
         <div className="flex items-center mt-2">
           <Link href={"/"} passHref>
-            <button className="py-[2px] px-3 bg-stone-700 hover:bg-stone-900 text-stone-200">
+            <button className="py-[2px] px-3 bg-stone-800 hover:bg-stone-900 text-stone-200">
               MINT
             </button>
           </Link>
           <Link href={"/marketplace"} passHref>
-            <button className="py-[2px] px-3 bg-stone-700 hover:bg-stone-900 text-stone-200 ml-2">
+            <button className="py-[2px] px-3 bg-stone-800 hover:bg-stone-900 text-stone-200 ml-2">
               BUY
             </button>
           </Link>

@@ -10,7 +10,11 @@ export const MobileNav = ({ ownedNFTS }) => {
       </Link>
       <Link href={"/your-nfts"} passHref>
         <button className="py-[2px] px-3 border-2 border-stone-900  hover:bg-stone-900 text-stone-900 hover:text-stone-200">
-          {ownedNFTS?.length && <p> YOU OWN {ownedNFTS.length} NFTS</p>}
+          {ownedNFTS?.length ? (
+            <p> YOU OWN {ownedNFTS.length} NFTS</p>
+          ) : (
+            <p>SEE EXAMPLES</p>
+          )}
         </button>
       </Link>
     </nav>
