@@ -16,7 +16,7 @@ export default function CreateAskForm({
   const [processing, setProcessing] = useState(false);
   const [hash, setHash] = useState("");
   const [askPrice, setAskPrice] = useState<any>(undefined);
-  const [findersFeeBps, setFindersFeeBps] = useState<any>(undefined);
+  const [findersFeeBps, setFindersFeeBps] = useState<any>(0);
   const askCurrency = "0x0000000000000000000000000000000000000000";
 
   const { data: signer } = useSigner();
@@ -37,7 +37,12 @@ export default function CreateAskForm({
     e.preventDefault();
     console.log("about to create an ask");
     setProcessing(true);
-    let price = ethers.utils.parseEther(askPrice.toString());
+    if (!askPrice || askPrice === 0) {
+      toast.error("Please enter a valid ask price");
+      setProcessing(false);
+      return;
+    }
+    let price = ethers.utils.parseEther(askPrice);
     let ff = (findersFeeBps * 10).toString();
     try {
       const receipt = await askModuleContract.createAsk(
@@ -98,7 +103,7 @@ export default function CreateAskForm({
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden  bg-stone-100 p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden  bg-stone-100 p-6 text-left align-middle shadow-xl transition-all">
                   <div className="mt-2 flex justify-between items-center ">
                     <Dialog.Title
                       as="h3"
@@ -123,43 +128,41 @@ export default function CreateAskForm({
                     onSubmit={(e) => handleCreateAsk(e)}
                     className="mt-4 flex flex-col justify-center space-y-4"
                   >
-                    <div className="grid grid-cols-6 items-center w-full ">
-                      <label htmlFor="#askPrice" className="col-span-2">
-                        Price
-                      </label>
-                      <span className="col-span-1"></span>
-                      <div className="col-span-3">
+                    <div className="flex items-center justify-between w-full">
+                      <label htmlFor="#askPrice">Price</label>
+                      <div className="grid grid-cols-6 ">
                         <input
                           id="#askPrice"
                           type="number"
                           placeholder="Price"
                           step={0.0001}
-                          className="p-2 "
+                          className="p-2 col-span-5"
                           onChange={(e: React.FormEvent<HTMLInputElement>) =>
                             setAskPrice(e.currentTarget.value)
                           }
                         />
-                        <span className="ml-2 text-right">ETH</span>
+                        <span className=" text-right text-lg flex flex-col justify-center w-full h-full">
+                          ETH
+                        </span>
                       </div>
                     </div>
-                    <div className="grid grid-cols-6 items-center">
-                      <label htmlFor="#findersFee" className="col-span-2">
-                        Finder&apos;s Fee
-                      </label>
-                      <span className="col-span-1"></span>
-                      <div className="col-span-3 w-full">
+                    <div className="flex items-center justify-between w-full">
+                      <label htmlFor="#findersFee">Finder&apos;s Fee</label>
+                      <div className="grid grid-cols-6 ">
                         <input
                           id="#findersFee"
                           type="number"
                           step={1}
                           max={100}
                           placeholder="Finder's fee"
-                          className="p-2 w"
+                          className="p-2 col-span-5 "
                           onChange={(e: React.FormEvent<HTMLInputElement>) =>
                             setFindersFeeBps(e.currentTarget.value)
                           }
                         />
-                        <span className="ml-2  text-right ">%</span>
+                        <span className=" text-right text-lg flex flex-col justify-center w-full h-full">
+                          %
+                        </span>
                       </div>
                     </div>
                     <button

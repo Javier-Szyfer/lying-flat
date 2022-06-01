@@ -1,7 +1,45 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Frames() {
+export default function OwnerNFTS({ ownedNFTS }) {
+  console.log(ownedNFTS);
+  if (ownedNFTS?.length) {
+    return (
+      <div className="relative flex flex-col h-screen justify-center items-center text-2xl sm:text-lg">
+        <nav className="fixed top-0 left-0 w-full flex  justify-between items-start p-4 sm:p-8 bg-stone-300 z-40">
+          <p>YOU OWN {ownedNFTS.length} NFTS</p>
+          <Link href={"/"} passHref>
+            <button className="py-[2px] px-3 bg-stone-800 hover:bg-stone-900 text-stone-200">
+              BACK
+            </button>
+          </Link>
+        </nav>
+
+        <div className="flex flex-col space-y-10 sm:space-y-0 sm:flex-row sm:justify-between sm:items-center md:space-x-12  mx-auto mt-8 ">
+          {ownedNFTS.map((nft: any) => {
+            const { tokenId } = nft;
+            const img = `https://ipfs.io/ipfs/bafybeicgwytuxvm6p6w6gbigaykwg5xmkwyvbnsx2jq5w7dbvkr4dpvwxy/${tokenId}.jpg`;
+            return (
+              <div
+                className="relative w-72 h-72 md:w-52 md:h-52 xl:w-72 xl:h-72"
+                key={nft.tokenId}
+              >
+                <span className="absolute top-[-2px] left-[-16px] w-10 h-4 rotate-[-45deg] bg-stone-400 z-10"></span>
+                <Image
+                  src={img}
+                  alt={nft?.name}
+                  layout="fill"
+                  objectFit="contain"
+                />
+                <span className="absolute top-[-2px] right-[-16px] w-10 h-4 rotate-[45deg] bg-stone-400   z-10"></span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="mt-52 sm:mt-32 md:mt-16 lg:mt-0 flex flex-col h-screen justify-center items-center ">
       <nav className="fixed top-0 left-0 w-full flex flex-col justify-start items-start p-4 sm:p-8 bg-stone-300 z-40">

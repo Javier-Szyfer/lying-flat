@@ -15,6 +15,10 @@ import { LyingFlatABI } from "../config/LyingFlatABI";
 import { formatHash } from "../utils/address";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import request, { RequestDocument } from "graphql-request";
+import { ZORA_INDEX_RINKEBY } from "../config/Zora";
+import { allMintedTokensQuery } from "../lib/ZoraQueries";
+import useSWR from "swr";
 
 const MintForm = () => {
   const [amount, setAmount] = useState(1);
@@ -113,6 +117,12 @@ const MintForm = () => {
     }
   };
 
+  const fetcher = (query: RequestDocument) =>
+    request(ZORA_INDEX_RINKEBY, query);
+
+  const { data: allTokensMinted } = useSWR(allMintedTokensQuery, fetcher, {
+    refreshInterval: 10,
+  });
   return (
     <>
       <form onSubmit={firstChecks}>
@@ -128,82 +138,85 @@ const MintForm = () => {
           draggable
           pauseOnHover={false}
         />
-        <div className="flex  justify-center space-x-2 ">
-          <div className="flex items-center justify-center border-2 text-2xl sm:text-lg  border-stone-800 text-center cursor-pointer ">
-            <div
-              className={`${
-                amount === 1 ? "bg-stone-400 " : "bg-transparent "
-              } py-1 px-2  text-center border-r-2 border-stone-800  `}
-              onClick={() => setAmount(1)}
-            >
-              1
-            </div>
-
-            <div
-              onClick={() => setAmount(2)}
-              className={`${
-                amount === 2 ? "bg-stone-400 " : "bg-transparent "
-              } py-1 px-2  text-center  `}
-            >
-              2
-            </div>
-          </div>
-          <button
-            type="submit"
-            disabled={processing || !account}
-            className="py-1 px-4 text-2xl sm:text-lg  border-2 border-stone-800  text-center disabled:opacity-80 disabled:cursor-not-allowed hover:bg-stone-400"
-          >
-            {processing ? (
-              <div className="flex justify-between items-center ">
-                <svg
-                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-stone-500"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
-                <span>MINTING...</span>{" "}
+        <div className="flex flex-col text-2xl sm:text-2xl lg:text-xl ">
+          <span>{allTokensMinted?.Token.length} / 20 MINTED</span>
+          <div className="flex  md:items-center justify-center space-x-2 mt-1">
+            <div className="flex items-center justify-center border-2  border-stone-800 text-center cursor-pointer ">
+              <div
+                className={`${
+                  amount === 1 ? "bg-stone-400 " : "bg-transparent "
+                } py-1 px-2  text-center border-r-2 border-stone-800  `}
+                onClick={() => setAmount(1)}
+              >
+                1
               </div>
-            ) : (
-              `MINT ${amount * 0.1} Ξ`
-            )}
-          </button>
-        </div>
-        {showTXHash && (
-          <Link
-            href={`https://rinkeby.etherscan.io/tx/${waitForTransaction?.transactionHash}`}
-            passHref
-          >
-            <a target="_blank" rel="noopener noreferrer">
-              <div className="relative flex flex-col font-bold text-sm  justify-center items-center px-2 py-1 bg-green-400 text-green-900 text-center border-2 border-green-600 mt-4 max-w-48 overflow-hidden">
-                {/* <button
+
+              <div
+                onClick={() => setAmount(2)}
+                className={`${
+                  amount === 2 ? "bg-stone-400 " : "bg-transparent "
+                } py-1 px-2  text-center  `}
+              >
+                2
+              </div>
+            </div>
+            <button
+              type="submit"
+              disabled={processing || !account}
+              className="py-1 px-4 text-2xl sm:text-2xl lg:text-xl  border-2 border-stone-800  text-center disabled:opacity-80 disabled:cursor-not-allowed hover:bg-stone-400"
+            >
+              {processing ? (
+                <div className="flex justify-between items-center ">
+                  <svg
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-stone-500"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  <span>MINTING...</span>{" "}
+                </div>
+              ) : (
+                `MINT ${amount * 0.1} Ξ`
+              )}
+            </button>
+          </div>
+          {showTXHash && (
+            <Link
+              href={`https://rinkeby.etherscan.io/tx/${waitForTransaction?.transactionHash}`}
+              passHref
+            >
+              <a target="_blank" rel="noopener noreferrer">
+                <div className="relative flex flex-col font-bold text-sm  justify-center items-center px-2 py-1 bg-green-400 text-green-900 text-center border-2 border-green-600 mt-4 max-w-48 overflow-hidden">
+                  {/* <button
                   className="absolute right-4 top-1 text-lg font-bold"
                   onClick={() => setShowTXHash(false)}
                 >
                   x
                 </button> */}
-                <span>
-                  SEE YOUR TX ON ETHERSCAN, <br /> YOU SHALL RECEIVE YOUR NFT
-                  PRETTY SOON
-                </span>
-                <span>{formatHash(waitForTransaction?.transactionHash)}</span>
-              </div>
-            </a>
-          </Link>
-        )}
+                  <span>
+                    SEE YOUR TX ON ETHERSCAN, <br /> YOU SHALL RECEIVE YOUR NFT
+                    PRETTY SOON
+                  </span>
+                  <span>{formatHash(waitForTransaction?.transactionHash)}</span>
+                </div>
+              </a>
+            </Link>
+          )}
+        </div>
       </form>
     </>
   );

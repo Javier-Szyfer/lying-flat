@@ -12,7 +12,6 @@ import {
 } from "wagmi";
 import { BigNumber, ethers } from "ethers";
 import { toast } from "react-toastify";
-import { parseUnits } from "ethers/lib/utils";
 
 export default function FillAskForm({
   fillAskState,
@@ -68,11 +67,13 @@ export default function FillAskForm({
     setProcessing(true);
     let id = parseInt(tokenId);
     const askCurrency = "0x0000000000000000000000000000000000000000";
-    let price = parseInt(askPrice);
-    let piceInETH = ethers.utils.formatEther(askPrice);
-    console.log("price in ETH", piceInETH);
-    console.log("askPrice", typeof askPrice);
-    console.log("BN", BigNumber.from(askPrice));
+    let priceInETH = ethers.utils.formatEther(askPrice).toString();
+    let price = parseFloat(priceInETH);
+    let priceFixed = ethers.FixedNumber.fromString(priceInETH);
+    console.log("price in ETH", priceInETH);
+    console.log("askPrice", askPrice);
+    console.log("price", price);
+    console.log("priceFixed", priceFixed);
     try {
       const receipt = await askModuleContract.fillAsk(
         contractAddress,
@@ -80,7 +81,7 @@ export default function FillAskForm({
         askCurrency,
         price,
         "0x0000000000000000000000000000000000000000",
-        { value: BigNumber.from(askPrice).toString() }
+        { value: ethers.utils.parseEther("0.005") }
       );
       {
         receipt?.hash && setHash(receipt.hash);

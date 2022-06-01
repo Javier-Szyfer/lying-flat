@@ -32,6 +32,11 @@ export default function UpdateAskModal({
     e.preventDefault();
     console.log("about to update an ask");
     setProcessing(true);
+    if (!askPrice || askPrice === 0) {
+      toast.error("Please enter a valid ask price");
+      setProcessing(false);
+      return;
+    }
     let price = ethers.utils.parseEther(askPrice.toString());
     try {
       const receipt = await askModuleContract.setAskPrice(

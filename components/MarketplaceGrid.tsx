@@ -183,13 +183,13 @@ export function MarketplaceGrid({ allTokensMinted, allV3AsksTokens }) {
                           ETH
                         </div>
                       )}
-                      {askData?.findersFeeBps > 0 && (
+                      {/* {askData?.findersFeeBps > 0 && (
                         <>
                           <Tooltip message={FF_MESSAGE}>
                             <span>{` ${askData.findersFeeBps / 10} %`}</span>
                           </Tooltip>
                         </>
-                      )}
+                      )} */}
                       {/* IF THE ASK BELONGS TO THE OWNER THEN SHOW CANCEL AND UPDATE BUTTONS */}
                       {owner === account?.address &&
                         askData?.status === "ACTIVE" && (
@@ -214,7 +214,7 @@ export function MarketplaceGrid({ allTokensMinted, allV3AsksTokens }) {
                             </button>
                           </div>
                         )}
-                      {/* NOT THE OWNER BUT THE ASK IS ACTIVE => SHOW FILL BUTTON  && 
+                      {/* NOT THE OWNER AND THE ASK IS ACTIVE => SHOW FILL BUTTON  && 
                       IF BUYER HAS NOT APPROVED ZORA MODULES YET => APPROVE THEM FIRST*/}
                       {owner !== account?.address &&
                         askData?.status === "ACTIVE" && (
@@ -229,10 +229,14 @@ export function MarketplaceGrid({ allTokensMinted, allV3AsksTokens }) {
                             BUY
                           </button>
                         )}
-                      {/* NOT THE OWNER AND THE ASK IS INACTIVE => SHOW OFFER BUTTON && 
-                      IF BUYER HAS NOT APPROVED ZORA MODULES YET => APPROVE THEM FIRST*/}
+                      {/* NOT THE OWNER AND THERES NO ASK YET */}
                       {owner !== account?.address &&
                         askData?.status === undefined && (
+                          <span>Not listed for sale</span>
+                        )}
+                      {/* NOT THE OWNER AND THE ASK HAS BEEN FILLED */}
+                      {owner !== account?.address &&
+                        askData?.status === "FILLED" && (
                           <span>Not listed for sale</span>
                         )}
                     </div>

@@ -12,7 +12,7 @@ import {
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit'
 
-import { chain, createClient, WagmiProvider } from 'wagmi'
+import { chain, createClient, WagmiConfig } from 'wagmi'
 import { ethers } from 'ethers'
 import Nav from '../components/Nav'
 
@@ -68,13 +68,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     return <></>
   } else {
     return (
-      <WagmiProvider client={wagmiClient}>
+      <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains} theme={myTheme}>
           <Component {...pageProps} />
           <Nav  />
 
         </RainbowKitProvider>
-      </WagmiProvider>
+      </WagmiConfig>
     )
   }
 }
