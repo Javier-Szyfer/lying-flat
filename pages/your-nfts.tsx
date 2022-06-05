@@ -6,13 +6,12 @@ import { contractAddress } from "../config/contractAddress";
 import { ZORA_INDEX_RINKEBY } from "../config/Zora";
 import Frames from "../components/Frames";
 import OwnerNFTS from "../components/OwnerNFTS";
+import Head from "next/head";
 
 export default function OwnedNFTS() {
   const [ownedNFTS, setOwnedNFTS] = useState([]);
 
-  const { data: account } = useAccount({
-    suspense: true,
-  });
+  const { data: account } = useAccount({});
 
   const fetcher = (query: RequestDocument) =>
     request(ZORA_INDEX_RINKEBY, query);
@@ -41,6 +40,12 @@ export default function OwnedNFTS() {
   if (ownedNFTS.length) {
     return (
       <div>
+        <Head>
+          <title>lying flat - marketplace</title>
+          <meta name="description" content="lying flat" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+
         <OwnerNFTS ownedNFTS={ownedNFTS} />
       </div>
     );

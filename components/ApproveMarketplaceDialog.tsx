@@ -129,10 +129,11 @@ export default function ApproveMarketplaceDialog({ isOpen, setIsOpen }) {
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      Laying Flat marketplace is built on top of the Zora
-                      Protocol. <br />
-                      Therefore, you&apos;ll need to approve it to list and buy
-                      NFTS. <br /> You will see this prompt only once.
+                      Laying Flat marketplace is built on the Zora Protocol.{" "}
+                      <br />
+                      Please sign the following approvals to allow the protocol
+                      to interact with your assets. NFTS. <br /> You will see
+                      this prompt only once.
                     </p>
                   </div>
 

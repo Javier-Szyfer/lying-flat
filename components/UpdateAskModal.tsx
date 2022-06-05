@@ -33,7 +33,7 @@ export default function UpdateAskModal({
     console.log("about to update an ask");
     setProcessing(true);
     if (!askPrice || askPrice === 0) {
-      toast.error("Please enter a valid ask price");
+      toast.error("Price must be greater than 0");
       setProcessing(false);
       return;
     }
@@ -99,7 +99,7 @@ export default function UpdateAskModal({
                   <div className="mt-2 flex justify-between items-center ">
                     <Dialog.Title
                       as="h3"
-                      className="text-lg font-medium leading-6 text-gray-900"
+                      className="text-lg font-bold leading-6 text-stone-800 tracking-tight "
                     >
                       Update Price
                     </Dialog.Title>

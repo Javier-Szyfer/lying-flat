@@ -11,17 +11,17 @@ const Marketplace: NextPage = () => {
   const fetcher = (query: RequestDocument) => request(ZORA_INDEX_RINKEBY, query)
 
   const { data: allTokensMinted } = useSWR(allMintedTokensQuery, fetcher, {
-    refreshInterval: 10,
+    refreshInterval: 5,
   })
   const { data: allV3AsksTokens } = useSWR(allV3Asks, fetcher, {
-    refreshInterval: 10,
+    refreshInterval: 5,
   })
 console.log("allTokensMinted", allTokensMinted?.Token)
 console.log("allV3Aks", allV3AsksTokens?.V3Ask)
   return (
     <div className=" sm:pt-10 md:pt-18 md:p-3  min-h-screen min-w-screen  bg-stone-300 ">
       <Head>
-        <title>Lying flat - Marketplace</title>
+        <title>lying flat - marketplace</title>
         <meta name="description" content="Lying flat NFT Marketplace" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

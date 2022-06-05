@@ -4,6 +4,7 @@ import Image from "next/image";
 import { contractAddress } from "../config/contractAddress";
 import mainnetZoraAddresses from "@zoralabs/v3/dist/addresses/4.json"; // Mainnet addresses, 4.json would be Rinkeby Testnet
 import { AsksV11__factory } from "@zoralabs/v3/dist/typechain/factories/AsksV11__factory";
+import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/outline";
 import {
   useSigner,
   useWaitForTransaction,
@@ -12,6 +13,7 @@ import {
 } from "wagmi";
 import { BigNumber, ethers } from "ethers";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 export default function FillAskForm({
   fillAskState,
@@ -26,6 +28,8 @@ export default function FillAskForm({
   const [findersFeeAddress, setFindersFeeAddress] = useState(
     "0x0000000000000000000000000000000000000000"
   );
+
+  console.log(findersFeeAddress, findersFeeBps);
   const [showFFInput, setShowFFInput] = useState(false);
 
   const { data: signer } = useSigner();
@@ -46,14 +50,6 @@ export default function FillAskForm({
   function closeModal() {
     setFillAskState(false);
   }
-  useEffect(() => {
-    if (tokenId) {
-      const { askPrice, findersFeeBps } = checkAsk(tokenId);
-      setAskPrice(askPrice);
-      setFindersFeeBps(findersFeeBps);
-    }
-    return;
-  }, [checkAsk, tokenId]);
 
   const handleFillAsk = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -67,21 +63,17 @@ export default function FillAskForm({
     setProcessing(true);
     let id = parseInt(tokenId);
     const askCurrency = "0x0000000000000000000000000000000000000000";
-    let priceInETH = ethers.utils.formatEther(askPrice).toString();
-    let price = parseFloat(priceInETH);
-    let priceFixed = ethers.FixedNumber.fromString(priceInETH);
-    console.log("price in ETH", priceInETH);
-    console.log("askPrice", askPrice);
-    console.log("price", price);
-    console.log("priceFixed", priceFixed);
+    let priceInETH = ethers.utils.formatEther(askPrice);
     try {
       const receipt = await askModuleContract.fillAsk(
         contractAddress,
         id,
         askCurrency,
-        price,
-        "0x0000000000000000000000000000000000000000",
-        { value: ethers.utils.parseEther("0.005") }
+        ethers.BigNumber.from(askPrice),
+        findersFeeAddress,
+        {
+          value: ethers.utils.parseEther(priceInETH),
+        }
       );
       {
         receipt?.hash && setHash(receipt.hash);
@@ -106,6 +98,15 @@ export default function FillAskForm({
       setFillAskState(false);
     },
   });
+
+  useEffect(() => {
+    if (tokenId) {
+      const { askPrice, findersFeeBps } = checkAsk(tokenId);
+      setAskPrice(askPrice);
+      setFindersFeeBps(findersFeeBps);
+    }
+    return;
+  }, [checkAsk, tokenId]);
 
   return (
     <>
@@ -138,7 +139,7 @@ export default function FillAskForm({
                   <div className="mt-2 flex justify-between items-center ">
                     <Dialog.Title
                       as="h3"
-                      className="text-lg font-medium leading-6 text-gray-900"
+                      className="text-lg font-bold tracking-tight leading-6 text-gray-900"
                     >
                       Buy
                     </Dialog.Title>
@@ -161,22 +162,29 @@ export default function FillAskForm({
                     <div className="flex items-center ">
                       <span>Price</span>
                       <div>
-                        <span className="mx-2">
+                        <span className="mx-2 font-bold">
                           {ethers.utils.formatEther(askPrice)}
                         </span>
                         <span>ETH</span>
                       </div>
                     </div>
                     {findersFeeBps > 0 && (
-                      <div className="flex items-center">
-                        <span>Finder&apos;s Fee {findersFeeBps / 10}%</span>
-                        <button
-                          className="flex flex-col justify-center items-center ml-4  rounded-full "
-                          type="button"
-                          onClick={() => setShowFFInput(!showFFInput)}
-                        >
-                          {showFFInput ? "-" : "+"}
-                        </button>
+                      <div className="flex flex-col">
+                        <span className="font-bold">Finder&apos;s Fee.</span>
+                        <div className="flex items-center">
+                          <span>Someone facilitated this sale?</span>
+                          <button
+                            className="flex flex-col justify-center items-center ml-2  rounded-full "
+                            type="button"
+                            onClick={() => setShowFFInput(!showFFInput)}
+                          >
+                            {showFFInput ? (
+                              <MinusCircleIcon className="h-4 w-4" />
+                            ) : (
+                              <PlusCircleIcon className="h-4 w-4" />
+                            )}
+                          </button>
+                        </div>
                       </div>
                     )}
                     {showFFInput && (
@@ -184,22 +192,36 @@ export default function FillAskForm({
                         <input
                           id="#findersFee"
                           type="text"
-                          placeholder="Finder's address"
-                          className="p-2 "
+                          placeholder="Finder's address ( No .ETH names )"
+                          className="p-2 w-full"
                           onChange={(e: React.FormEvent<HTMLInputElement>) =>
                             setFindersFeeAddress(e.currentTarget.value)
                           }
                         />
                       </div>
                     )}
+                    {findersFeeBps > 0 && showFFInput && (
+                      <span className="text-xs underline">
+                        <Link
+                          href={
+                            "https://docs.zora.co/docs/v3-overview#finders-fee"
+                          }
+                          passHref
+                        >
+                          <a target="_blank" rel="noopener noreferrer">
+                            Learn about Finder&apos;s Fee
+                          </a>
+                        </Link>
+                      </span>
+                    )}
 
                     <button
                       type="submit"
                       disabled={processing}
-                      className=" mt-4 inline-flex justify-center border border-transparent bg-stone-800 px-4 py-2 text-sm font-medium text-stone-100 hover:bg-stone-900 focus:outline-none "
+                      className=" mt-4 inline-flex justify-center border border-transparent bg-stone-800 px-4 py-2 text-sm font-bold text-stone-100 hover:bg-stone-900 focus:outline-none "
                     >
                       {processing ? (
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center ">
                           <svg
                             className="animate-spin -ml-1 mr-3 h-5 w-5 text-stone-500"
                             xmlns="http://www.w3.org/2000/svg"

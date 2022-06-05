@@ -88,7 +88,7 @@ export default function CancelAskModal({
                   <div className="mt-2 flex justify-between items-center ">
                     <Dialog.Title
                       as="h3"
-                      className="text-lg font-medium leading-6 text-gray-900"
+                      className="text-lg font-bold leading-6 tracking-tight text-stone-900"
                     >
                       Cancel listing
                     </Dialog.Title>
@@ -105,13 +105,27 @@ export default function CancelAskModal({
                       />
                     </div>
                   </div>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">
+                  <div className="mt-6">
+                    <span className="text-sm text-stone-600 flex items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 text-stone-600"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                        />
+                      </svg>
                       You&apos;re about to cancel the listing of this NFT.
-                    </p>
+                    </span>
                   </div>
 
-                  <div className="mt-4">
+                  <div className="mt-6">
                     <button
                       type="button"
                       className=" inline-flex justify-center border border-transparent bg-stone-800 px-4 py-2 text-sm font-medium text-stone-100 hover:bg-stone-900 focus:outline-none "

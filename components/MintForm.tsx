@@ -78,6 +78,7 @@ const MintForm = () => {
       args: account?.address,
     }
   );
+
   const { signMessageAsync } = useSignMessage({
     message: `Your'e about to mint ${amount} tokens!`,
   });
@@ -128,7 +129,7 @@ const MintForm = () => {
     request(ZORA_INDEX_RINKEBY, query);
 
   const { data: allTokensMinted } = useSWR(allMintedTokensQuery, fetcher, {
-    refreshInterval: 10,
+    refreshInterval: 5,
   });
 
   useEffect(() => {

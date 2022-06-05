@@ -44,7 +44,7 @@ const myTheme = merge(darkTheme(), {
     modalBackground: "#202020",
   },
   fonts: {
-    body: 'FRANKLIN',
+    body: '"AUTHENTIC", sans-serif',
     
   },
   radii: {

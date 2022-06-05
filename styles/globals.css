@@ -3,15 +3,16 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "FRANKLIN";
-  src: url("../public/fonts/FRANKLIN.otf");
+  font-family: "AUTHENTIC";
+  src: url("../public/fonts/cond90.ttf") format("ttf"),
+    url("../public/fonts/cond130.ttf") format("ttf");
 }
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: "FRANKLIN", sans-serif;
+  font-family: "AUTHENTIC", sans-serif;
   background-color: #d6d3d1;
 }
 

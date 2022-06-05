@@ -46,7 +46,7 @@ const Home: NextPage = () => {
   return (
     <div className="relative  md:p-3  flex justify-center items-center lg:bg-[url('../public/bg.png')]  bg-center bg-cover min-h-screen min-w-screen  bg-stone-300 ">
       <Head>
-        <title>Lying flat</title>
+        <title>lying flat</title>
         <meta name="description" content="Lying flat NFT collection" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -60,7 +60,7 @@ const Home: NextPage = () => {
             </span>
           </Link>
           <Link href={'/your-nfts'} passHref>
-            <span className=" absolute top-6 w-52 flex items-center justify-left cursor-pointer ">
+            <span className=" absolute top-6 w-60 flex items-center justify-left cursor-pointer ">
               <button className=" bg-stone-400 border-2 border-stone-900 hover:bg-stone-800 rounded-full w-4 h-4 mr-2" />
               {tokens && (
                 <p className="tracking-tight text-lg flex-nowrap ">

@@ -12,7 +12,6 @@ import ApproveMarketplaceDialog from "../components/ApproveMarketplaceDialog";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ethers } from "ethers";
-import { Tooltip, FF_MESSAGE } from "./Tooltip";
 import ConnectModal from "./ConnectModal";
 
 const CheckENS = (address: any) => {
@@ -165,9 +164,7 @@ export function MarketplaceGrid({ allTokensMinted, allV3AsksTokens }) {
                   <div className="flex flex-col divide-y divide-stone-500">
                     <div className="py-2 px-4 w-full flex items-center justify-between ">
                       {owner === account?.address ? (
-                        <span className="">
-                          Owned by <span className="font-bold">you</span>
-                        </span>
+                        <span className="">Owned by you</span>
                       ) : (
                         <span>{ensName}</span>
                       )}
@@ -193,9 +190,9 @@ export function MarketplaceGrid({ allTokensMinted, allV3AsksTokens }) {
                         )}
                       {/* IF ASK IS CREATED => SHOW PRICE */}
                       {askData?.askPrice && askData?.status === "ACTIVE" && (
-                        <div className="flex items-center text-stone-700 font-light">
+                        <div className="flex items-center text-stone-800 font-medium">
                           Price
-                          <span className="font-black mx-1 text-stone-900">
+                          <span className="font-bold mx-1 text-stone-900">
                             {ethers.utils.formatEther(askData.askPrice)}
                           </span>
                           ETH

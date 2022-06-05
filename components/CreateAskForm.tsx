@@ -7,6 +7,7 @@ import { AsksV11__factory } from "@zoralabs/v3/dist/typechain/factories/AsksV11_
 import { useSigner, useAccount, useWaitForTransaction } from "wagmi";
 import { ethers } from "ethers";
 import { toast } from "react-toastify";
+import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/outline";
 
 export default function CreateAskForm({
   createAskState,
@@ -18,6 +19,7 @@ export default function CreateAskForm({
   const [askPrice, setAskPrice] = useState<any>(undefined);
   const [findersFeeBps, setFindersFeeBps] = useState<any>(0);
   const askCurrency = "0x0000000000000000000000000000000000000000";
+  const [showFFInput, setShowFFInput] = useState(false);
 
   const { data: signer } = useSigner();
   const { data: account } = useAccount({
@@ -107,7 +109,7 @@ export default function CreateAskForm({
                   <div className="mt-2 flex justify-between items-center ">
                     <Dialog.Title
                       as="h3"
-                      className="text-lg font-medium leading-6 text-gray-900"
+                      className="text-lg font-bold tracking-tight leading-6 text-stone-800"
                     >
                       Sell your NFT
                     </Dialog.Title>
@@ -130,45 +132,61 @@ export default function CreateAskForm({
                   >
                     <div className="flex items-center justify-between w-full">
                       <label htmlFor="#askPrice">Price</label>
-                      <div className="grid grid-cols-6 ">
+                      <div className="grid grid-cols-6 sm:gap-2">
                         <input
                           id="#askPrice"
                           type="number"
-                          placeholder="Price"
+                          placeholder="Set your price"
                           step={0.0001}
-                          className="p-2 col-span-5"
+                          className="p-2 col-span-5  sm:w-48"
                           onChange={(e: React.FormEvent<HTMLInputElement>) =>
                             setAskPrice(e.currentTarget.value)
                           }
                         />
-                        <span className=" text-right text-lg flex flex-col justify-center w-full h-full">
+                        <span className="ml-1 sm:ml-0 col-span-1 text-right text-lg flex flex-col justify-center w-full h-full">
                           ETH
                         </span>
                       </div>
                     </div>
-                    <div className="flex items-center justify-between w-full">
-                      <label htmlFor="#findersFee">Finder&apos;s Fee</label>
-                      <div className="grid grid-cols-6 ">
-                        <input
-                          id="#findersFee"
-                          type="number"
-                          step={1}
-                          max={100}
-                          placeholder="Finder's fee"
-                          className="p-2 col-span-5 "
-                          onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                            setFindersFeeBps(e.currentTarget.value)
-                          }
-                        />
-                        <span className=" text-right text-lg flex flex-col justify-center w-full h-full">
-                          %
-                        </span>
+
+                    <button
+                      className="text-left flex items-center justify-between w-full"
+                      type="button"
+                      onClick={() => setShowFFInput(!showFFInput)}
+                    >
+                      Want to set some fee if someone <br /> facilitate this
+                      sale?
+                      {showFFInput ? (
+                        <MinusCircleIcon className="h-5 w-5 text-stone-800" />
+                      ) : (
+                        <PlusCircleIcon className="h-5 w-5 text-stone-800" />
+                      )}
+                    </button>
+                    {showFFInput && (
+                      <div className="flex items-center justify-between w-full">
+                        <label htmlFor="#findersFee">Finder&apos;s Fee</label>
+                        <div className="grid grid-cols-6 sm:gap-2">
+                          <input
+                            id="#findersFee"
+                            type="number"
+                            step={1}
+                            max={100}
+                            placeholder="0"
+                            className="p-2 col-span-5 sm:w-48"
+                            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                              setFindersFeeBps(e.currentTarget.value)
+                            }
+                          />
+                          <span className="ml-1 sm:ml-0 col-span-1 text-center text-lg flex flex-col justify-center w-full h-full">
+                            %
+                          </span>
+                        </div>
                       </div>
-                    </div>
+                    )}
                     <button
                       type="submit"
                       disabled={processing}
-                      className=" mt-4 inline-flex justify-center border border-transparent bg-stone-800 px-4 py-2 text-sm font-medium text-stone-100 hover:bg-stone-900 focus:outline-none "
+                      className=" mt-4 inline-flex justify-center border border-transparent bg-stone-800 px-4 py-2 text-sm font-bold text-stone-100 hover:bg-stone-900 focus:outline-none "
                     >
                       {processing ? (
                         <div className="flex justify-between items-center">
