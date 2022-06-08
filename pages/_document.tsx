@@ -4,6 +4,25 @@ export default function Document(props) {
   return (
     <Html lang="en">
       <Head>
+        <meta charSet="utf-8" />
+        <meta name="title" content="Lying Flat" />
+        <meta
+          name="description"
+          content="Lying flat is a 20 NFT collection and a custom marketplace"
+        />
+        <meta property="og:url" content="https://lyingflat.place" />
+        <meta
+          property="og:title"
+          content="Lying flat is a 20 NFT collection and a custom marketplace"
+        />
+        <meta
+          property="og:image"
+          content="https://res.cloudinary.com/aldi/image/upload/v1654717083/lying%20flat/og_srw9np.jpg"
+          key="ogimage"
+        />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
         <link
           rel="preload"
           href="/fonts/cond90.ttf"
