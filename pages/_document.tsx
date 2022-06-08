@@ -23,6 +23,18 @@ export default function Document(props) {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
 
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image:alt" content="Lying flat open graph" />
+        <meta name="twitter:title" content="Lying Flat" />
+        <meta
+          name="twitter:description"
+          content="Lying flat is a 20 NFT collection and a custom marketplace"
+        />
+        <meta
+          name="twitter:image"
+          content="https://res.cloudinary.com/aldi/image/upload/v1654717083/lying%20flat/og_srw9np.jpg"
+        />
+
         <link
           rel="preload"
           href="/fonts/cond90.ttf"
