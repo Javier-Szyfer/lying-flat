@@ -2,11 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: [
-      "ipfs.io",
-      "opensea.mypinata.cloud",
-      "cryptocoven.s3.amazonaws.com",
-    ],
+    domains: ["ipfs.io", "res.cloudinary.com"],
   },
 };
 

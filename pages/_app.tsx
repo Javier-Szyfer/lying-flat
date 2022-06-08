@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import '@rainbow-me/rainbowkit/styles.css'
+import Head from 'next/head'
 import type { AppProps } from 'next/app'
 import { useState, useEffect } from 'react'
 import merge from 'lodash.merge'
@@ -10,6 +11,8 @@ import {
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit'
 import { infuraProvider } from 'wagmi/providers/infura';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { publicProvider } from 'wagmi/providers/public'
 import { chain, createClient, WagmiConfig, configureChains } from 'wagmi'
 import { ethers } from 'ethers'
 import Nav from '../components/Nav'
@@ -18,9 +21,17 @@ const provider = new ethers.providers.InfuraProvider(
   "rinkeby",
   process.env.INFURA_ID);
 
+  // const provider = new ethers.providers.AlchemyProvider(
+  //   "mainnet",
+  //   process.env.ALCHEMY_ID
+  // )
+
+
 const { chains } = configureChains(
-  [chain.rinkeby],
-  [infuraProvider({ infuraId: process.env.INFURA_ID })],
+  [chain.rinkeby, chain.mainnet],
+  [infuraProvider({ infuraId: process.env.INFURA_ID }),
+  alchemyProvider({ alchemyId: process.env.ALCHEMY_ID }),
+  publicProvider()],
 )
 
 const { connectors } = getDefaultWallets({
@@ -69,12 +80,24 @@ function MyApp({ Component, pageProps }: AppProps) {
     return <></>
   } else {
     return (
+      <>
+      <Head>
+        <title>lying flat</title>
+        <meta name="description" content="Lying flat NFT collection" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta property="og:image" content="https://res.cloudinary.com/aldi/image/upload/v1654717083/lying%20flat/og_srw9np.jpg"/>
+        <meta property="og:title" content="Lying Flat"/>
+        <meta property="og:description" content="Lying flat is a NFT marketplace and collection"/>
+        <meta property="og:image:width" content="1200"/>
+        <meta property="og:image:height" content="630"/>
+      </Head>
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains} theme={myTheme}>
           <Component {...pageProps} />
           <Nav  />
         </RainbowKitProvider>
       </WagmiConfig>
+      </>
     )
   }
 }

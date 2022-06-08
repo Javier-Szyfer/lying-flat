@@ -1,5 +1,6 @@
-import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
+import Link from "next/link";
+import { Dialog, Transition } from "@headlessui/react";
 import mainnetZoraAddresses from "@zoralabs/v3/dist/addresses/4.json"; // Mainnet addresses, 4.json would be Rinkeby Testnet
 import { IERC721__factory } from "@zoralabs/v3/dist/typechain/factories/IERC721__factory";
 import { IERC20__factory } from "@zoralabs/v3/dist/typechain/factories/IERC20__factory";
@@ -31,7 +32,6 @@ export default function ApproveMarketplaceDialog({ isOpen, setIsOpen }) {
   );
   //TransferHelpers must be aproved to transfer NFTs
   const erc721TransferHelperAddress = mainnetZoraAddresses.ERC721TransferHelper;
-  // const erc20TransferHelperAddress = mainnetZoraAddresses.ERC20TransferHelper;
 
   const handleApprovals = async () => {
     setApproving(true);
@@ -84,6 +84,7 @@ export default function ApproveMarketplaceDialog({ isOpen, setIsOpen }) {
 
   const { data: waitForTransaction } = useWaitForTransaction({
     hash: hash,
+    confirmations: 2,
     onSuccess(data) {
       setApproving(false);
       toast.success("Zora Modules approved", {
@@ -127,12 +128,22 @@ export default function ApproveMarketplaceDialog({ isOpen, setIsOpen }) {
                   >
                     Approve Zora Modules
                   </Dialog.Title>
-                  <div className="mt-2">
+                  <div className="mt-4">
                     <p className="text-sm text-gray-500">
-                      Laying Flat marketplace is built on the Zora Protocol.{" "}
+                      Laying Flat marketplace is built on the{" "}
+                      <Link href={"https://docs.zora.co/"} passHref>
+                        <a
+                          target="_blank"
+                          rel="noopener no refferer"
+                          className="text-gray-900 underline"
+                        >
+                          Zora Protocol.
+                        </a>
+                      </Link>
+                      <br />
                       <br />
                       Please sign the following approvals to allow the protocol
-                      to interact with your assets. NFTS. <br /> You will see
+                      to interact with your assets. <br /> <br /> You will see
                       this prompt only once.
                     </p>
                   </div>

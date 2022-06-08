@@ -37,6 +37,13 @@ const MintForm = () => {
     addressOrName: account?.address,
   });
 
+  const fetcher = (query: RequestDocument) =>
+    request(ZORA_INDEX_RINKEBY, query);
+
+  const { data: allTokensMinted } = useSWR(allMintedTokensQuery, fetcher, {
+    refreshInterval: 5,
+  });
+
   const { data: mintData, writeAsync } = useContractWrite(
     {
       addressOrName: contractAddress,
@@ -52,6 +59,7 @@ const MintForm = () => {
   const { data: waitForTransaction } = useWaitForTransaction({
     hash: mintData?.hash,
     wait: mintData?.wait,
+    confirmations: 3,
     onSuccess(data) {
       showSuccess(data);
       setShowTXHash(true);
@@ -103,6 +111,12 @@ const MintForm = () => {
         toastId: "5sgg4gsy345",
       });
       return;
+    } else if (allTokensMinted?.Token.length + amount > 20) {
+      setProcessing(false);
+      toast.error("Max supply is 20, you can only mint one!", {
+        toastId: "max-supply-error",
+      });
+      return;
     }
     mintFunc();
   };
@@ -125,18 +139,12 @@ const MintForm = () => {
     }
   };
 
-  const fetcher = (query: RequestDocument) =>
-    request(ZORA_INDEX_RINKEBY, query);
-
-  const { data: allTokensMinted } = useSWR(allMintedTokensQuery, fetcher, {
-    refreshInterval: 5,
-  });
-
   useEffect(() => {
     if (account) {
       setConnectOpen(false);
     }
   }, [account]);
+
   return (
     <>
       {!account && (

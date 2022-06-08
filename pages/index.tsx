@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import Head from 'next/head'
 import useSWR from 'swr'
 import { contractAddress } from '../config/contractAddress'
 import { useAccount } from 'wagmi'
@@ -44,12 +43,7 @@ const Home: NextPage = () => {
   }, [tokens])
 
   return (
-    <div className="relative  md:p-3  flex justify-center items-center lg:bg-[url('../public/bg.png')]  bg-center bg-cover min-h-screen min-w-screen  bg-stone-300 ">
-      <Head>
-        <title>lying flat</title>
-        <meta name="description" content="Lying flat NFT collection" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div className="relative  md:p-3  flex justify-center items-center lg:bg-[url('../public/bg.png')]  bg-center bg-cover min-h-screen min-w-screen   ">
       {/* UPPERMENU */}
       <div className="relative  flex flex-col items-start w-full h-full px-4 space-y-20 sm:space-y-0  sm:flex-row  sm:items-center    lg:w-[860px] lg:h-[326px] xl:h-[349px] xl:w-[900px] lg:justify-evenly lg:items-center">
         <div className="hidden lg:flex flex-col absolute top-2 left-2 z-50 ">

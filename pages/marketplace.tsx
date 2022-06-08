@@ -19,17 +19,17 @@ const Marketplace: NextPage = () => {
 console.log("allTokensMinted", allTokensMinted?.Token)
 console.log("allV3Aks", allV3AsksTokens?.V3Ask)
   return (
-    <div className=" sm:pt-10 md:pt-18 md:p-3  min-h-screen min-w-screen  bg-stone-300 ">
+    <div className=" sm:pt-10 md:pt-18 md:p-3  min-h-screen min-w-screen  ">
       <Head>
         <title>lying flat - marketplace</title>
         <meta name="description" content="Lying flat NFT Marketplace" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <nav className="flex items-center fixed z-30 text-2xl sm:text-lg backdrop-blur-sm top-0 left-0 h-16 w-full px-8 lg:px-12 text-stone-800">
-        <span>MARKETPLACE</span>
+      <nav className="tracking-tight  flex items-center fixed z-30 text-2xl sm:text-lg backdrop-blur-sm top-0 left-0 h-16 w-full px-8 lg:px-12 text-stone-800">
+        <span >MARKETPLACE</span>
         <span className="mx-2">/</span>
         <Link href="/" passHref>
-          <a className="hover:text-stone-900 "> MINT</a>
+          <a className="hover:text-stone-900 hover:font-bold "> MINT</a>
         </Link>
       </nav>
       {allTokensMinted && allV3AsksTokens ?

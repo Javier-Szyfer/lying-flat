@@ -8,7 +8,7 @@ export default function Nav() {
   return (
     <>
       <DialogConcept isOpen={isOpen} setIsOpen={setIsOpen} />
-      <nav className="fixed z-50 bottom-0 left-0 w-full px-4 bg-stone-300  lg:px-8 py-2 flex justify-between items-center h-16 ">
+      <nav className="fixed z-50 bottom-0 left-0 w-full px-4 bg-[#d1ccc0]  lg:px-8 py-2 flex justify-between items-center h-16 ">
         <div className="flex justify-center items-center">
           <h1 className="text-xl text-stone-800 tracking-tight font-medium italic mr-2">
             lying flat

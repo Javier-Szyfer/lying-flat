@@ -69,6 +69,7 @@ export default function CreateAskForm({
 
   const { data: waitForTransaction } = useWaitForTransaction({
     hash: hash,
+    confirmations: 2,
     onSuccess(data) {
       setProcessing(false);
       toast.success("NFT listed successfully", {
@@ -154,7 +155,7 @@ export default function CreateAskForm({
                       type="button"
                       onClick={() => setShowFFInput(!showFFInput)}
                     >
-                      Want to set some fee if someone <br /> facilitate this
+                      Want to set some fee if someone <br /> facilitates this
                       sale?
                       {showFFInput ? (
                         <MinusCircleIcon className="h-5 w-5 text-stone-800" />

@@ -2,14 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function OwnerNFTS({ ownedNFTS }) {
-  console.log(ownedNFTS);
   if (ownedNFTS?.length) {
     return (
       <div className="relative flex flex-col min-h-screen justify-center items-center text-xl sm:text-2xl ">
-        <nav className="fixed top-0 left-0 w-full flex  justify-between items-start p-4 sm:p-8 bg-stone-300 z-40">
-          <p>YOU OWN {ownedNFTS.length} NFTS</p>
+        <nav className="fixed top-0 left-0 w-full flex  justify-between items-start p-4 sm:p-8 bg-[#d1ccc0] z-40">
+          <p className="tracking-tighter">YOU OWN {ownedNFTS.length} NFTS</p>
           <Link href={"/"} passHref>
-            <button className="py-[1px] px-2 sm:py-[2px] sm:px-3 md:text-xl bg-stone-800 hover:bg-stone-900 text-stone-200">
+            <button className="tracking-tight py-[1px] px-2 sm:py-[2px] sm:px-3 md:text-xl bg-stone-800 hover:bg-stone-900 text-stone-200">
               BACK
             </button>
           </Link>
@@ -44,9 +43,9 @@ export default function OwnerNFTS({ ownedNFTS }) {
   }
 
   return (
-    <div className="mt-52 sm:mt-32 md:mt-16 lg:mt-0 flex flex-col h-screen justify-center items-center ">
-      <nav className="fixed top-0 left-0 w-full flex flex-col justify-start items-start p-4 sm:p-8 bg-stone-300 z-40">
-        <p className="">
+    <div className="mt-52 sm:mt-32 md:mt-16 lg:mt-0 flex flex-col h-screen justify-center items-center bg-[#d1ccc0] ">
+      <nav className="fixed top-0 left-0 w-full flex flex-col justify-start items-start p-4 sm:p-8 bg-[#d1ccc0] z-40">
+        <p>
           YOU DON&apos;T OWN ANY NFTS YET. <br />
           THIS ART PIECES ARE DISPLAYED TO SHOWCASE THE NFT COLLECTION STYLE.
         </p>
