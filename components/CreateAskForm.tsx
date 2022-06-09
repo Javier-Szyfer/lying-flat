@@ -2,7 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 import { Fragment, SyntheticEvent, useState } from "react";
 import { contractAddress } from "../config/contractAddress";
-import mainnetZoraAddresses from "@zoralabs/v3/dist/addresses/4.json"; // Mainnet addresses, 4.json would be Rinkeby Testnet
+import mainnetZoraAddresses from "@zoralabs/v3/dist/addresses/1.json"; // Mainnet addresses, 4.json would be Rinkeby Testnet
 import { AsksV11__factory } from "@zoralabs/v3/dist/typechain/factories/AsksV11__factory";
 import { useSigner, useAccount, useWaitForTransaction } from "wagmi";
 import { ethers } from "ethers";

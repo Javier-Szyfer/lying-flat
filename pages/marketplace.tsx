@@ -2,13 +2,13 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import useSWR from 'swr'
-import { ZORA_INDEX_RINKEBY, ZORA_INDEX_MAINNET } from '../config/Zora'
+import {  ZORA_INDEX_MAINNET } from '../config/Zora'
 import { request, RequestDocument } from 'graphql-request'
 import { MarketplaceGrid } from '../components/MarketplaceGrid'
 import { allMintedTokensQuery, allV3Asks } from '../lib/ZoraQueries'
 
 const Marketplace: NextPage = () => {
-  const fetcher = (query: RequestDocument) => request(ZORA_INDEX_RINKEBY, query)
+  const fetcher = (query: RequestDocument) => request(ZORA_INDEX_MAINNET, query)
 
   const { data: allTokensMinted } = useSWR(allMintedTokensQuery, fetcher, {
     refreshInterval: 5,

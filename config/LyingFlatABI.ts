@@ -256,6 +256,19 @@ export const LyingFlatABI = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "isPublicSaleActive",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       {
         internalType: "uint256",
@@ -440,6 +453,19 @@ export const LyingFlatABI = [
       },
     ],
     name: "setContractURI",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bool",
+        name: "_isPublicSaleActive",
+        type: "bool",
+      },
+    ],
+    name: "setIsPublicSaleActive",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

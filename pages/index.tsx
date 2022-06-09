@@ -6,7 +6,7 @@ import { contractAddress } from '../config/contractAddress'
 import { useAccount } from 'wagmi'
 import MintForm from '../components/MintForm'
 import MintInfo from '../components/MintInfo'
-import { ZORA_INDEX_RINKEBY } from '../config/Zora'
+import { ZORA_INDEX_MAINNET } from '../config/Zora'
 import { request, RequestDocument } from 'graphql-request'
 import { MobileNav } from '../components/MobileNav'
 
@@ -17,7 +17,7 @@ const Home: NextPage = () => {
     suspense: true,
   })
 
-  const fetcher = (query: RequestDocument) => request(ZORA_INDEX_RINKEBY, query)
+  const fetcher = (query: RequestDocument) => request(ZORA_INDEX_MAINNET, query)
 
   const query = `{
     Token(

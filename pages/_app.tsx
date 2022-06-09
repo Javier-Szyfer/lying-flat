@@ -9,27 +9,22 @@ import {
   Theme,
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit'
-import { infuraProvider } from 'wagmi/providers/infura';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public'
 import { chain, createClient, WagmiConfig, configureChains } from 'wagmi'
 import { ethers } from 'ethers'
 import Nav from '../components/Nav'
 
-const provider = new ethers.providers.InfuraProvider(
-  "rinkeby",
-  process.env.INFURA_ID);
 
-  // const provider = new ethers.providers.AlchemyProvider(
-  //   "mainnet",
-  //   process.env.ALCHEMY_ID
-  // )
+  const provider = new ethers.providers.AlchemyProvider(
+    "mainnet",
+    process.env.ALCHEMY_ID
+  )
 
 
 const { chains } = configureChains(
-  [chain.rinkeby, chain.mainnet],
-  [infuraProvider({ infuraId: process.env.INFURA_ID }),
-  alchemyProvider({ alchemyId: process.env.ALCHEMY_ID }),
+  [chain.mainnet],
+  [alchemyProvider({ alchemyId: process.env.ALCHEMY_ID }),
   publicProvider()],
 )
 

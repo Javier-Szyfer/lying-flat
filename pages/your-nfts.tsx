@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { useAccount } from "wagmi";
 import { contractAddress } from "../config/contractAddress";
-import { ZORA_INDEX_RINKEBY } from "../config/Zora";
+import { ZORA_INDEX_MAINNET } from "../config/Zora";
 import Frames from "../components/Frames";
 import OwnerNFTS from "../components/OwnerNFTS";
 import Head from "next/head";
@@ -14,7 +14,7 @@ export default function OwnedNFTS() {
   const { data: account } = useAccount({});
 
   const fetcher = (query: RequestDocument) =>
-    request(ZORA_INDEX_RINKEBY, query);
+    request(ZORA_INDEX_MAINNET, query);
 
   const query = `{
   Token(

@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import Link from "next/link";
 import { Dialog, Transition } from "@headlessui/react";
-import mainnetZoraAddresses from "@zoralabs/v3/dist/addresses/4.json"; // Mainnet addresses, 4.json would be Rinkeby Testnet
+import mainnetZoraAddresses from "@zoralabs/v3/dist/addresses/1.json"; // Mainnet addresses, 4.json would be Rinkeby Testnet
 import { IERC721__factory } from "@zoralabs/v3/dist/typechain/factories/IERC721__factory";
 import { IERC20__factory } from "@zoralabs/v3/dist/typechain/factories/IERC20__factory";
 import { ZoraModuleManager__factory } from "@zoralabs/v3/dist/typechain/factories/ZoraModuleManager__factory";

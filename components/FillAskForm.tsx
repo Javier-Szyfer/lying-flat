@@ -2,7 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, SyntheticEvent, useState, useEffect } from "react";
 import Image from "next/image";
 import { contractAddress } from "../config/contractAddress";
-import mainnetZoraAddresses from "@zoralabs/v3/dist/addresses/4.json"; // Mainnet addresses, 4.json would be Rinkeby Testnet
+import mainnetZoraAddresses from "@zoralabs/v3/dist/addresses/1.json"; // Mainnet addresses, 4.json would be Rinkeby Testnet
 import { AsksV11__factory } from "@zoralabs/v3/dist/typechain/factories/AsksV11__factory";
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/outline";
 import {
