@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import { formatAddress } from "../utils/address";
-import { ZORA_INDEX_RINKEBY, ZORA_MODULE_MANAGER_ABI } from "../config/Zora";
+import { ZORA_MODULE_MANAGER_ABI } from "../config/Zora";
 import { useAccount, useContractRead, useEnsName } from "wagmi";
-import mainnetZoraAddresses from "@zoralabs/v3/dist/addresses/4.json"; // Mainnet addresses, 4.json would be Rinkeby Testnet
+import mainnetZoraAddresses from "@zoralabs/v3/dist/addresses/1.json"; // Mainnet addresses, 4.json would be Rinkeby Testnet
 import CreateAskForm from "../components/CreateAskForm";
 import CancelAskModal from "../components/CancelAskModal";
 import UpdateAskModal from "../components/UpdateAskModal";
