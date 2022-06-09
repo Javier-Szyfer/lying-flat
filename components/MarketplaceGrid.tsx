@@ -143,7 +143,7 @@ export function MarketplaceGrid({ allTokensMinted, allV3AsksTokens }) {
               const { owner, tokenId } = token;
               const askData = checkAsk(tokenId);
               const ensName = CheckENS(owner);
-              const img = `https://ipfs.io/ipfs/bafybeicgwytuxvm6p6w6gbigaykwg5xmkwyvbnsx2jq5w7dbvkr4dpvwxy/${tokenId}.jpg`;
+              const img = `https://ipfs.io/ipfs/bafybeiddblti7v4kmhda2neoggpr3jaikdz5rbp4xzzqqyjykotkmf45xy/${tokenId}.jpg`;
 
               return (
                 <div

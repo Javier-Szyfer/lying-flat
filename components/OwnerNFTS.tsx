@@ -17,7 +17,7 @@ export default function OwnerNFTS({ ownedNFTS }) {
         <div className="flex flex-col space-y-10 sm:space-y-0 md:flex-row sm:justify-between sm:items-center md:space-x-12 mx-auto my-32 md:my-0 lg:mt-8 ">
           {ownedNFTS.map((nft: any) => {
             const { tokenId } = nft;
-            const img = `https://ipfs.io/ipfs/bafybeicgwytuxvm6p6w6gbigaykwg5xmkwyvbnsx2jq5w7dbvkr4dpvwxy/${tokenId}.jpg`;
+            const img = `https://ipfs.io/ipfs/bafybeiddblti7v4kmhda2neoggpr3jaikdz5rbp4xzzqqyjykotkmf45xy/${tokenId}.jpg`;
             return (
               <div
                 key={nft.tokenId}
