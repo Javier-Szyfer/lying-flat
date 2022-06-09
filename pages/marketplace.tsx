@@ -16,8 +16,6 @@ const Marketplace: NextPage = () => {
   const { data: allV3AsksTokens } = useSWR(allV3Asks, fetcher, {
     refreshInterval: 5,
   })
-console.log("allTokensMinted", allTokensMinted?.Token)
-console.log("allV3Aks", allV3AsksTokens?.V3Ask)
   return (
     <div className=" sm:pt-10 md:pt-18 md:p-3  min-h-screen min-w-screen  ">
       <Head>
