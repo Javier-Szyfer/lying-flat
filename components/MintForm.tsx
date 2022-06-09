@@ -16,7 +16,7 @@ import { formatHash } from "../utils/address";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import request, { RequestDocument } from "graphql-request";
-import { ZORA_INDEX_RINKEBY } from "../config/Zora";
+import { ZORA_INDEX_MAINNET } from "../config/Zora";
 import { allMintedTokensQuery } from "../lib/ZoraQueries";
 import useSWR from "swr";
 import ConnectModal from "./ConnectModal";
@@ -38,7 +38,7 @@ const MintForm = () => {
   });
 
   const fetcher = (query: RequestDocument) =>
-    request(ZORA_INDEX_RINKEBY, query);
+    request(ZORA_INDEX_MAINNET, query);
 
   const { data: allTokensMinted } = useSWR(allMintedTokensQuery, fetcher, {
     refreshInterval: 5,
