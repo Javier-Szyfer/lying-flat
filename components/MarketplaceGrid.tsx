@@ -143,7 +143,7 @@ export function MarketplaceGrid({ allTokensMinted, allV3AsksTokens }) {
               const { owner, tokenId } = token;
               const askData = checkAsk(tokenId);
               const ensName = CheckENS(owner);
-              const img = `https://ipfs.io/ipfs/bafybeiddblti7v4kmhda2neoggpr3jaikdz5rbp4xzzqqyjykotkmf45xy/${tokenId}.jpg`;
+              const img = `https://ipfs.io/ipfs/bafybeibkdwfaoi3sfupqhhugatkuampiog5zkqjkvaf6lops2zbhmkojeq/${tokenId}.JPG`;
 
               return (
                 <div
@@ -162,7 +162,7 @@ export function MarketplaceGrid({ allTokensMinted, allV3AsksTokens }) {
                     />
                   </div>
                   <div className="flex flex-col divide-y divide-stone-500">
-                    <div className="py-2 px-4 w-full flex items-center justify-between ">
+                    <div className="py-2 px-4 w-full flex items-center justify-between border-t border-stone-500 ">
                       {owner === account?.address ? (
                         <span className="">Owned by you</span>
                       ) : (
