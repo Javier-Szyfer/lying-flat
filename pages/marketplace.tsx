@@ -13,6 +13,7 @@ const Marketplace: NextPage = () => {
   const { data: allTokensMinted } = useSWR(allMintedTokensQuery, fetcher, {
     refreshInterval: 5,
   })
+  console.log(allTokensMinted)
   const { data: allV3AsksTokens } = useSWR(allV3Asks, fetcher, {
     refreshInterval: 5,
   })
