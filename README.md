@@ -5,7 +5,7 @@ The codebase is open for everyone to use it as a boilerplate, customize it and d
 ### Why ZORA?
 
 Because by building on top of [ZORA V3 Marketplace Protocols](https://zine.zora.co/zora-v3) you will be able to fully own your on-chain marketplace, premissionless and in a trustless fashion, with all the functionalities you might need and introducing some unique novel features.
-You can lear more about the importance of building of a public marketplace protocol which is itself a -Hyperstructure- [here](https://jacob.energy/hyperstructures.html).
+You can learn more about the importance of building of a public marketplace protocol which is itself a -Hyperstructure- [here](https://jacob.energy/hyperstructures.html).
 
 **Note:**
 I will not be covering here how to make a ERC721 contract nor uploading artworks/metadata to IPFS or other web3 hosting services.
