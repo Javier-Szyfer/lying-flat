@@ -23,7 +23,7 @@ const Marketplace: NextPage = () => {
         <meta name="description" content="Lying flat NFT Marketplace" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <nav className="tracking-tight  flex items-center fixed z-30 text-2xl sm:text-lg backdrop-blur-sm top-0 left-0 h-16 w-full px-8 lg:px-12 text-stone-800">
+      <nav className="tracking-tight  flex items-center fixed z-30 text-2xl backdrop-blur-sm top-0 left-0 h-16 w-full px-8 lg:px-12 text-stone-800">
         <span >MARKETPLACE</span>
         <span className="mx-2">/</span>
         <Link href="/" passHref>

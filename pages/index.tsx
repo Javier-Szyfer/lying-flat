@@ -43,10 +43,10 @@ const Home: NextPage = () => {
   }, [tokens])
 
   return (
-    <div className="relative  md:p-3  flex justify-center items-center lg:bg-[url('../public/bg.png')]  bg-center bg-cover min-h-screen min-w-screen   ">
+    <div className="relative  flex justify-center items-center lg:bg-[url('../public/bg.png')] xl:bg-transparent bg-center bg-fixed  min-h-screen min-w-screen   ">
       {/* UPPERMENU */}
-      <div className="relative  flex flex-col items-start w-full h-full px-4 space-y-20 sm:space-y-0  sm:flex-row  sm:items-center    lg:w-[860px] lg:h-[326px] xl:h-[349px] xl:w-[900px] lg:justify-evenly lg:items-center">
-        <div className="hidden lg:flex flex-col absolute top-2 left-2 z-50 ">
+      <div className="relative  mt-5  flex flex-col items-start w-full h-full px-4 space-y-20 sm:space-y-0  sm:flex-row  sm:items-center  lg:w-[1100px] lg:h-[460px] xl:h-[460px] xl:w-[1217px] lg:justify-evenly lg:items-center">
+        <div className="hidden lg:flex flex-col absolute top-3 left-6 z-50 ">
           <Link href="/marketplace" passHref>
             <span className=" flex items-center justify-center cursor-pointer">
               <span className="  bg-stone-400 border-2 border-stone-900 hover:bg-stone-800 rounded-full w-4 h-4  mr-2 " />
