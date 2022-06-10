@@ -166,7 +166,7 @@ const MintForm = () => {
           draggable
           pauseOnHover={false}
         />
-        <span className="px-2 py-1 text-[#d1ccc0] bg-stone-900\ text-2xl mb-2 border-2 border-stone-800">
+        <span className="px-2 py-1 text-[#d1ccc0] bg-stone-900 text-2xl mb-2 border-2 border-stone-800">
           SOLD OUT!
         </span>
         <div className="flex flex-col text-2xl leading-6 mt-5">
