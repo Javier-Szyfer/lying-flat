@@ -166,8 +166,11 @@ const MintForm = () => {
           draggable
           pauseOnHover={false}
         />
-        <div className="flex flex-col text-2xl leading-6">
-          <span>{allTokensMinted?.Token.length} / 20 MINTED</span>
+        <span className="px-2 py-1 text-[#d1ccc0] bg-stone-900 text-2xl mb-2 border-2 border-stone-800">
+          SOLD OUT!
+        </span>
+        <div className="flex flex-col text-2xl leading-6 mt-5">
+          <span className="">{allTokensMinted?.Token.length} / 20 MINTED</span>
           <div className="flex  md:items-center justify-center space-x-2 mt-1">
             <div className="flex items-center justify-center border-2  border-stone-800 text-center cursor-pointer ">
               <div
@@ -190,7 +193,7 @@ const MintForm = () => {
             </div>
             <button
               type="submit"
-              disabled={processing}
+              disabled={true}
               className="py-1 px-4  leading-6 text-2xl md:text-2xl border-2 border-stone-800  text-center disabled:opacity-80 disabled:cursor-not-allowed hover:bg-stone-400"
             >
               {processing ? (
