@@ -166,14 +166,14 @@ const MintForm = () => {
           draggable
           pauseOnHover={false}
         />
-        <div className="flex flex-col text-2xl sm:text-2xl lg:text-xl ">
+        <div className="flex flex-col text-2xl leading-6">
           <span>{allTokensMinted?.Token.length} / 20 MINTED</span>
           <div className="flex  md:items-center justify-center space-x-2 mt-1">
             <div className="flex items-center justify-center border-2  border-stone-800 text-center cursor-pointer ">
               <div
                 className={`${
                   amount === 1 ? "bg-stone-400 " : "bg-transparent "
-                } py-1 px-2  text-center border-r-2 border-stone-800  `}
+                } py-1 px-2 text-2xl text-center border-r-2 border-stone-800  `}
                 onClick={() => setAmount(1)}
               >
                 1
@@ -183,7 +183,7 @@ const MintForm = () => {
                 onClick={() => setAmount(2)}
                 className={`${
                   amount === 2 ? "bg-stone-400 " : "bg-transparent "
-                } py-1 px-2  text-center  `}
+                } py-1 px-2 text-2xl  text-center  `}
               >
                 2
               </div>
@@ -191,7 +191,7 @@ const MintForm = () => {
             <button
               type="submit"
               disabled={processing}
-              className="py-1 px-4 text-2xl sm:text-2xl lg:text-xl  border-2 border-stone-800  text-center disabled:opacity-80 disabled:cursor-not-allowed hover:bg-stone-400"
+              className="py-1 px-4  leading-6 text-2xl md:text-2xl border-2 border-stone-800  text-center disabled:opacity-80 disabled:cursor-not-allowed hover:bg-stone-400"
             >
               {processing ? (
                 <div className="flex justify-between items-center ">
