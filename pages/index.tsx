@@ -50,14 +50,14 @@ const Home: NextPage = () => {
           <Link href="/marketplace" passHref>
             <span className=" flex items-center justify-center cursor-pointer">
               <span className="  bg-stone-400 border-2 border-stone-900 hover:bg-stone-800 rounded-full w-4 h-4  mr-2 " />
-              <p className="tracking-tight text-lg">MARKETPLACE</p>
+              <p className="tracking-tight text-xl">MARKETPLACE</p>
             </span>
           </Link>
           <Link href={'/your-nfts'} passHref>
-            <span className=" absolute top-6 w-60 flex items-center justify-left cursor-pointer ">
+            <span className=" absolute top-7 w-72 flex items-center justify-left cursor-pointer ">
               <button className=" bg-stone-400 border-2 border-stone-900 hover:bg-stone-800 rounded-full w-4 h-4 mr-2" />
               {tokens && (
-                <p className="tracking-tight text-lg flex-nowrap ">
+                <p className="tracking-tight text-xl flex-nowrap ">
                   {ownedNFTS?.length
                     ? `${ownedNFTS.length} NFTs`
                     : 'ARTWORKS EXAMPLES'}
